@@ -30,6 +30,7 @@ import hu.mta.sztaki.lpds.cloud.simulator.iaas.PhysicalMachine;
 import hu.mta.sztaki.lpds.cloud.simulator.iaas.PhysicalMachine.ResourceAllocation;
 import hu.mta.sztaki.lpds.cloud.simulator.iaas.VMManager.VMManagementException;
 import hu.mta.sztaki.lpds.cloud.simulator.iaas.VirtualMachine;
+import hu.mta.sztaki.lpds.cloud.simulator.iaas.pmscheduling.NewsVendorController;
 import hu.mta.sztaki.lpds.cloud.simulator.io.NetworkNode.NetworkException;
 
 import java.util.LinkedList;
@@ -51,6 +52,8 @@ public class FirstFitScheduler extends Scheduler {
 			while ((request = queue.peek()) != null && processableRequest) {
 				ras.clear();
 				int vmNum = 0;
+
+				NewsVendorController.receivedTimes.add(request.receivedTime);
 				do {
 					VirtualMachine vm = request.queuedVMs[vmNum];
 					processableRequest = false;

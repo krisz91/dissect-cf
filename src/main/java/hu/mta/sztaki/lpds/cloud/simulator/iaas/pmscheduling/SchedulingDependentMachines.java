@@ -96,7 +96,7 @@ public class SchedulingDependentMachines extends PhysicalMachineController {
 	}
 
 	private ArrayList<CapacityChangeManager> capacityManagers = new ArrayList<CapacityChangeManager>();
-	private boolean noMachineTurningOn = true;
+	protected boolean noMachineTurningOn = true;
 
 	public SchedulingDependentMachines(final IaaSService parent) {
 		super(parent);
