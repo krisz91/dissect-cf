@@ -37,6 +37,8 @@ import java.util.LinkedList;
 
 public class FirstFitScheduler extends Scheduler {
 
+	public static long firstJobCreatedTime = 0;
+
 	public FirstFitScheduler(IaaSService parent) {
 		super(parent);
 	}
@@ -52,7 +54,11 @@ public class FirstFitScheduler extends Scheduler {
 			while ((request = queue.peek()) != null && processableRequest) {
 				ras.clear();
 				int vmNum = 0;
-
+				if(firstJobCreatedTime == 0) {
+					firstJobCreatedTime = request.receivedTime/1000;
+				} else {
+					NewsVendorController.currentDay = (int)(((request.receivedTime/1000)-firstJobCreatedTime)/43200);
+				}
 				NewsVendorController.receivedTimes.add(request.receivedTime);
 				do {
 					VirtualMachine vm = request.queuedVMs[vmNum];
